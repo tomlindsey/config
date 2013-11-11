@@ -69,5 +69,5 @@ fscode() {
 #
 # common directories
 alias c='cd "$CODE"'
-alias fs='fscode'
+alias f='fscode'
 alias s='cd ~/scratch'
