@@ -1,0 +1,2 @@
+#!/bin/sh
+osascript -l AppleScript -e "Tell application \"Omniweb\" to getURL \"http://team:8090/UI/Pages/WorkItems/QueryResult.aspx?pid=731&qid=50fe46b0-b8d1-4b7a-ab39-13a86e4fc5a3\""

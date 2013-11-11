@@ -1,0 +1,23 @@
+#!/bin/sh
+
+pushd ~/scratch/prodlogs
+rm catalina_*
+
+for i in 1 2
+do
+    sftp tomcat@uapp$i.prod.fs.local <<EOF
+get /opt/tomcat/logs/catalina.out ./catalina_app$i
+get /opt/tomcat_ws/logs/catalina.out ./catalina_ws$i
+
+EOF
+done
+
+for i in 1 2
+do
+    sftp tomcat@urep$i.prod.fs.local <<EOF
+get /opt/tomcat_ws/logs/catalina.out ./catalina_rep$i
+
+EOF
+done
+
+popd
