@@ -1,2 +1,0 @@
-ssh -N -L80:localhost:8081 me@localhost
-
