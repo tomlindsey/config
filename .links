@@ -1,0 +1,16 @@
+-*- mode: goto-address;-*-
+
+local  http://localhost:8081/fsol/indexForward.do
+next   http://uapp1.next.fs.local:8080/fsol/indexForward.do
+main   http://uapp1.main.fs.local:8080/fsol/indexForward.do
+utrack http://jk:8112/issues?q=project%3A+ss-11.2+project%3A+FM-2.5+%23Unresolved
+team   http://jk:8111
+
+jkblog http://jk/users/tlindsey/
+marina http://marina/Technology/default.aspx
+hr     https://thesource.foundationsource.com/wiki/doku.php?id=hr:index
+
+deanna@lindsey-family.us hope@lindsey-family.us ian@lindsey-family.us 
+
+cvanausdal@foundationsource.com dvanausdal@foundationsource.com kdenning@foundationsource.com
+kbeckstrand@foundationsource.com dcallaway@foundationsource.com
