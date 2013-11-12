@@ -3,6 +3,31 @@
 ;;;; tom@thomasclindsey.com
 
 ;;;
+;;; functions
+;;;
+
+(defun google (t)
+  "use google to search the term"
+  (interactive "sSearch: ")
+  (browse-url (concat "http://www.google.com/search?q="
+                      (url-encode-url t))))
+(defun dict (w)
+  "use google to lookup word"
+  (interactive "sDefine: ")
+  (google (concat "definition:" w)))
+
+(defun lorem ()
+  "Insert a lorem ipsum."
+  (interactive)
+  (insert "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do "
+          "eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad "
+          "minim veniam, quis nostrud exercitation ullamco laboris nisi ut "
+          "aliquip ex ea commodo consequat. Duis aute irure dolor in "
+          "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla "
+          "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in "
+          "culpa qui officia deserunt mollit anim id est laborum."))
+
+;;;
 ;;; customize
 ;;;
 
@@ -24,8 +49,10 @@
  '(display-time-24hr-format t)
  '(indent-tabs-mode nil)
  '(menu-bar-mode t nil (menu-bar))
+ '(scroll-preserve-screen-position 1)
+ '(send-mail-function `mailclient-send-it)
  '(show-paren-mode t)
- '(show-paren-style (quote mixed))
+ '(show-paren-style `mixed)
  '(show-trailing-whitespace t)
  '(size-indication-mode t)
  '(tab-width 4)
@@ -90,16 +117,14 @@
     (setq backup-directory-alist `((".*" . ,backup-dir)))
     (setq auto-save-file-name-transforms `((".*" ,backup-dir t)))
     (setq-default backup-by-copy t)
-    (setq delete-old-versions t))
-  nil)
+    (setq delete-old-versions t)))
 
 (defun tweak-key-bindings()
   "home, end, and M-ret"
   (global-set-key [home] 'move-beginning-of-line)
   (global-set-key [end] 'move-end-of-line)
   (if (boundp 'ns-toggle-fullscreen)
-      (global-set-key [(meta return)] 'ns-toggle-fullscreen))
-  nil)
+      (global-set-key [(meta return)] 'ns-toggle-fullscreen)))
 
 (defun tweak-lisps ()
   (setq inferior-lisp-program "/opt/local/bin/clisp")
