@@ -1,16 +1,31 @@
 -*- mode: goto-address;-*-
 
-local  http://localhost:8081/fsol/indexForward.do
-next   http://uapp1.next.fs.local:8080/fsol/indexForward.do
-main   http://uapp1.main.fs.local:8080/fsol/indexForward.do
-utrack http://jk:8112/issues?q=project%3A+ss-11.2+project%3A+FM-2.5+%23Unresolved
-team   http://jk:8111
+-- google stuff
+http://mail.google.com
+https://accounts.google.com/Logout
 
-jkblog http://jk/users/tlindsey/
-marina http://marina/Technology/default.aspx
-hr     https://thesource.foundationsource.com/wiki/doku.php?id=hr:index
+-- fsol
+local     http://localhost:8081/fsol/indexForward.do
+main      http://uapp1.main:8080/fsol/indexForward.do
+next      http://uapp1.next:8080/fsol/indexForward.do
+release   http://uapp1.release:8080/fsol/indexForward.do
 
-deanna@lindsey-family.us hope@lindsey-family.us ian@lindsey-family.us 
+-- foundaion source
+handbook  http://marina/HR/Shared%20Documents/employee_handbook_revision%2010.8.13.pdf
+intranet  http://marina/default.aspx
+team      http://jk:8111
+wiki      http://liberty.fs.local
+work blog http://liberty.fs.local/wiki/people/Q468V6T5/blog
+youtrack  http://jk:8112/issues?q=project%3A+ss-11.2+project%3A+FM-2.5+%23Unresolved
 
-cvanausdal@foundationsource.com dvanausdal@foundationsource.com kdenning@foundationsource.com
-kbeckstrand@foundationsource.com dcallaway@foundationsource.com
+-- mail stuff
+deanna@lindsey-family.us
+hope@lindsey-family.us
+ian@lindsey-family.us
+
+bmills@foundationsource.com
+cvanausdal@foundationsource.com
+dcallaway@foundationsource.com
+dvanausdal@foundationsource.com
+jhasler@foundationsource.com
+kbeckstrand@foundationsource.com
