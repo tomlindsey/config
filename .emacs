@@ -1,207 +1,28 @@
-;; -*- mode: lisp; -*-
+;;;; -*- mode: lisp; -*-
 ;;;; .emacs
 ;;;; tom@thomasclindsey.com
 
-;;
-;; global key
-(global-set-key [F1] (lambda () (interactive) (manual-entry (current-word))))
-(global-set-key [home] 'move-beginning-of-line)
-(global-set-key [end] 'move-end-of-line)
-(if (>= emacs-major-version 24)
-    (global-set-key [(meta return)] 'ns-toggle-fullscreen))
-
 ;;;
-;;; stuff I am playing with
-;;ido : http://www.emacswiki.org/emacs/InteractivelyDoThings
-;(require 'ido)
-;(ido-mode)
-
+;;; customize
 ;;;
-;;; paths
-(setq backup-directory-alist (quote (("." . "~/backup/emacs"))))
-(setq load-path
-      (append
-       ["~/lib/emacs/elisp-txl"]
-       ["~/lib/emacs/elisp-downloaded"]
-       ["~/lib/emacs/elisp-downloaded/cedet-1.1/common"]
-       ["~/lib/emacs/elisp-downloaded/ess-12.04/lisp"]
-       ["~/lib/emacs/elisp-downloaded/emacs-jabber-0.8.91"]
-       ["~/lib/emacs/elisp-downloaded/slime"]
-       ["/usr/local/opt/git/share/git-core/contrib/emacs"]  ; macports git
-       load-path))
 
-;;
-;;backup and autosave
-(setq-default backup-by-copy t)
-(setq delete-old-versions t)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:height 140 :family "Source Code Pro")))))
 
-;;;
-;;; display settings
-(setq frame-title-format "%f")
-(setq inhibit-startup-message t)
-(put 'narrow-to-region 'disabled nil)       ; narrow to region should be on
-(setq-default scroll-conservatively 1)      ; adjust by one line instead of centering
-
-;;
-;; search-replace
-(setq-default case-fold-search nil)
-(setq-default case-replace nil)
-(setq-default query-replace-highlight t)
-(setq-default search-highlight t)
-
-;;;
-;;; misc
-(setq kill-whole-line t)
-(setq require-final-newline t)
-(setq ring-bell-function 'ignore)
-(fset 'yes-or-no-p 'y-or-n-p)
-
-;;;
-;;; org-mode
-(setq org-log-done 'note)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cl" 'org-store-link)
-
-;;;
-;;; mode support
-(require 'clojure-mode)
-(require 'slime-autoloads)
-(eval-after-load "slime"
-  '(progn
-     (add-to-list 'load-path "~/lib/emacs/slime/contrib")
-     (slime-setup '(slime-fancy slime-banner))
-     (setq slime-complete-symbol*-fancy t)
-     (setq slime-complete-symbol-function 'slime-fuzzy-complete-symbol)))
-
-;;
-;; scala and ensime
-(add-to-list 'load-path "~/lib/emacs/elisp-downloaded/scala-emacs")
-(add-to-list 'load-path "~/lib/emacs/elisp-downloaded/ensime/elisp")
-(require 'scala-mode-auto)
-(add-hook 'scala-mode-hook
-          '(lambda ()
-             (scala-mode-feature-electric-mode)))
-(require 'scala-mode)
-(require 'ensime)
-(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
-
-;;
-;; modes by file extension (automode)
-(setq auto-mode-alist
-      (append '(
-                ("\\.org$" . org-mode)
-                ("\\.m$" . objc-mode)
-                ("\\.ph4" . php-mode)
-                ("\\.rb" . ruby-mode)
-                ("\\.rby" . ruby-mode)
-                ("\\.R" . R-mode)
-                ("\\.r" . R-mode)
-                ("\\.M" . matlab-mode)
-                ("\\.clj" . clojure-mode)
-                ("\\.scala$" . scala-mode))
-              auto-mode-alist))
-
-;;
-;; lisp editing
-(require 'highlight-parentheses)
-(setq hl-paren-colors
-      '("orange1" "yellow1" "green1" "magenta1" "purple" "cyan" "slateblue1" "red1"))
-(autoload 'paredit-mode "paredit"
-      "Minor mode for pseudo-structurally editing Lisp code." t)
-(add-hook 'clojure-mode-hook          (lambda () (highlight-parentheses-mode t)))
-(add-hook 'emacs-lisp-mode-hook       (lambda () (highlight-parentheses-mode t)))
-(add-hook 'lisp-mode-hook             (lambda () (highlight-parentheses-mode t)))
-(add-hook 'lisp-interaction-mode-hook (lambda () (highlight-parentheses-mode t)))
-;(add-hook 'clojure-mode-hook
-;          (lambda ()
-;            (highlight-parentheses-mode t)
-;            (paredit-mode t))
-;          (slime-mode t))
-
-;;
-;; p4
-(setenv "P4CONFIG" ".p4config")
-(load-library "p4")
-(p4-set-p4-executable "/usr/local/bin/p4")
-(setq p4-use-p4config-exclusively t)
-
-;;
-;; git
-(require 'git)
-(require 'git-blame)
-
-;; ess
-(require 'ess-site)
-
-;;
-;; slime
-(require 'slime-autoloads)
-(eval-after-load "slime"
-  '(progn
-     (add-to-list 'load-path "~/lib/emacs/slime/contrib")
-     (slime-setup '(slime-fancy slime-banner))
-     (setq slime-complete-symbol*-fancy t)
-     (setq slime-complete-symbol-function 'slime-fuzzy-complete-symbol)))
-
-;; ;; Optionally, specify the Lisp program you are using. Default is "lisp"
-;; ;; If the Allegro directory is not in your PATH environment variable
-;; ;; this should be a fully qualified path.
-;; ;; choose one of the below based on Express or non-Express usage
-;;(setq inferior-lisp-program "/Applications/AllegroCL/alisp")
-(setq inferior-lisp-program "/opt/local/bin/clisp") 
-;; ;;(setq inferior-lisp-program "allegro-express") 
-;; ;;
-;; ;; haskell
-;; (load "~/lib/emacs/haskell-mode/haskell-site-file")
-;; (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-;; ;;(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
-;; ;;(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
-;; (add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
-;; (add-hook 'haskell-mode-hook 'font-lock-mode)
-
-
-;-txl-styles----------------------------------------------------------------
-; a few simple modifications to the c and c++ major modes
-; txl-comment: some code that comments my source code.  I have heard that
-;              I should use the skeleton? feature but I have no idea what it
-;              is or how I should use it.  someday I will have to get up
-;              enough courage and ambition to see for myself.
-;   1. create a key map for all txlXXX functions
-;   2. create a key map for the txlComment-XXX functions
-;   3. bind M-t to the txl key map.  M-t was transpose-words
-;   4. bind M-t c to the txlComment-xxx functions
-;   5-8 bind the class, comment, file, function, and method functions
-;---------------------------------------------------------------------------
-;; (require 'txl-misc)
-;; (require 'txl-comment)
-;; (load "txl-style-c")
-;; (defvar txl-global-keymap (make-sparse-keymap))
-;; (define-key global-map [(meta t)] txl-global-keymap)        ; M-t
-;; (defvar txl-comment-keymap (make-sparse-keymap))
-;; (define-key txl-global-keymap [(c)] txl-comment-keymap)     ; M-t c
-;; (define-key txl-comment-keymap [(c)] 'txlComment-generic)   ; M-t c c
-;; (define-key txl-comment-keymap [(m)] 'txlComment-method)    ; M-t c m
-;; (define-key txl-comment-keymap [(u)] 'txlComment-function)  ; M-t c u
-;; (define-key txl-comment-keymap [(l)] 'txlComment-class)     ; M-t c l
-;; (define-key txl-comment-keymap [(f)] 'txlComment-file)      ; M-t c f
-
-;;
-;; custom-set-variables------------------------------------------------------
 (custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(blink-cursor-mode t nil (frame))
  '(column-number-mode t)
  '(delete-selection-mode t nil (delsel))
  '(display-time-24hr-format t)
  '(indent-tabs-mode nil)
- '(jabber-alert-presence-hooks nil)
- '(jabber-vcard-avatars-retrieve nil)
- '(jabber-vcard-avatars-publish nil)
- '(jabber-chat-buffer-show-avatar nil)
- '(jabber-roster-sort-functions (quote (jabber-roster-sort-by-displayname)))
  '(menu-bar-mode t nil (menu-bar))
  '(show-paren-mode t)
  '(show-paren-style (quote mixed))
@@ -216,84 +37,134 @@
  '(user-mail-address "tlindsey@foundationsource.com")
  '(version-control t))
 
-;;
-;; for all windows systems
-(if (not (equal 'nil window-system))
-    (progn
-      (global-font-lock-mode t)
-      (print "txl: running in a window system")
-      (scroll-bar-mode -1)
-      ;(global-hl-line-mode t)
-      (add-to-list 'load-path "~/lib/emacs/elisp-downloaded/color-theme-6.6.0")
-      (require 'color-theme)
-      (eval-after-load "color-theme"
-        '(progn
-           (color-theme-initialize)
-           (color-theme-deep-blue))))  ; (deep-blue,gtk-ide,late-night,jonadabian-slate,charcoal-black
-  (progn
-    (print "txl:running under a terminal")))
+;;;
+;;; modes
+;;;
 
-;;
-;; for a specific window system
-;;
-;; ns (cocoa) and mac (carbon)
-(if (or (equal window-system 'ns) (equal window-system 'mac))
-    (progn
-      (if (equal window-system 'ns)
-          (setq ns-command-modifier 'meta))
-      (global-set-key [kp-delete] 'delete-char)
-      
-      (setq default-frame-alist
-            (append (list
-                     '(active-alpha . 0.9)
-                     '(inactive-alpha . 0.6))
-                    default-frame-alist))
-      
-      (find-file "~/.dates")
-      (find-file "~/.links")))
-;;
-;; windows
-(if (equal window-system 'w32)
-    (progn
-      (setq w32-enable-synthesized-fonts t)))
+(defun modes-git ()
+  "install git and gitblame: magit was installed with package.el"
+  (add-to-list 'load-path "/usr/local/opt/git/share/git-core/contrib/emacs") ; homebrew
+  (require 'git)
+  (require 'git-blame))
 
-(cd "~/scratch")
-(if (string-equal "txl.local" (system-name))
-    (ns-toggle-fullscreen))
+(defun modes-org ()
+  "close items with time, key bindings for agenda and store link"
+  (setq org-log-done 'time) ; 'note or buffer by buffer with : #+STARTUP: logdone or lognotedone
+  (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+  (global-set-key "\C-ca" 'org-agenda)
+  (global-set-key "\C-cl" 'org-store-link))
 
-;;(setq scheme-program-name "/usr/local/bin/scheme")
-;;(defun load-xscheme () (require 'xscheme))
-;;(add-hook 'scheme-mode-hook 'load-xscheme)
-;;(load "~/lib/emacs/elisp-downloaded/xscheme.el")
-(custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(default ((t (:height 130 :family "Menlo"))))
- '(jabber-roster-user-online ((t (:foreground "white" :slant normal :weight bold)))))
+(defun modes-scala ()
+  ""
+  (add-to-list 'auto-mode-alist '("\\.scala" . scala-mode)))
+
+(defun modes-stats ()
+  (add-to-list 'load-path "~/lib/emacs/elisp-downloaded/ess-13.09/lisp") ; ess.r-project.org
+  (require 'ess-site)
+  (setq auto-mode-alist
+        (append '(("\\.R" . R-mode)
+                  ("\\.r" . R-mode))
+                auto-mode-alist)))
+
+(defun modes-web ()
+  "web-mode from packages.el"
+  (setq auto-mode-alist
+        (append '(
+                  ("\\.phtml" . web-mode)
+                  ("\\.php"   . web-mode))
+                auto-mode-alist)))
+
+(defun modes ()
+  (modes-git)
+  (modes-org)
+  (modes-stats)
+  (modes-web))
 
 ;;;
-;;; code stuff
-;(add-hook 'before-save-hook (lambda () (delete-trailing-whitespace)))
-(require 'cedet)
-(global-ede-mode 1)                      ; Enable the Project management system
-(semantic-load-enable-code-helpers)      ; Enable prototype help and smart completion 
-(global-srecode-minor-mode 1)            ; Enable template insertion menu
-(require 'semantic-ia)                 ;; more completion fun
-(require 'semantic-java)               ;; and java too
+;;; tweaks
+;;;
+
+(defun tweak-backup ()
+  "location and options for backup and autosave"
+  (let ((backup-dir "~/backup/emacs"))
+    (setq backup-directory-alist `((".*" . ,backup-dir)))
+    (setq auto-save-file-name-transforms `((".*" ,backup-dir t)))
+    (setq-default backup-by-copy t)
+    (setq delete-old-versions t))
+  nil)
+
+(defun tweak-key-bindings()
+  "home, end, and M-ret"
+  (global-set-key [home] 'move-beginning-of-line)
+  (global-set-key [end] 'move-end-of-line)
+  (if (boundp 'ns-toggle-fullscreen)
+      (global-set-key [(meta return)] 'ns-toggle-fullscreen))
+  nil)
+
+(defun tweak-lisps ()
+  (setq inferior-lisp-program "/opt/local/bin/clisp")
+  (setq hl-paren-colors '("orange1" "yellow1" "green1" "magenta1" "purple" "cyan" "slateblue1" "red1"))
+;;  (autoload 'paredit-mode "paredit" "Minor mode for pseudo-structurally editing Lisp code." t)
+  (add-hook 'clojure-mode-hook          (lambda () (highlight-parentheses-mode t)))
+  (add-hook 'emacs-lisp-mode-hook       (lambda () (highlight-parentheses-mode t)))
+  (add-hook 'lisp-mode-hook             (lambda () (highlight-parentheses-mode t)))
+  (add-hook 'lisp-interaction-mode-hook (lambda () (highlight-parentheses-mode t))))
+
+(defun tweak-package-manager ()
+  (setq package-archives '(("gnu"       . "http://elpa.gnu.org/packages/")
+                           ("marmalade" . "http://marmalade-repo.org/packages/")
+                           ("melpa"     .  "http://melpa.milkbox.net/packages/"))))
+
+(defun tweak-window-manager ()
+  (if (not (equal 'nil window-system))
+      (progn
+        ;; common to all window managers
+        (global-font-lock-mode t)
+        (scroll-bar-mode -1)
+        (add-to-list 'load-path "~/lib/emacs/elisp-downloaded/color-theme-6.6.0")
+        (require 'color-theme)
+        (eval-after-load "color-theme"
+          '(progn
+             (color-theme-initialize)
+             (color-theme-shaman)))  ; (deep-blue,gtk-ide,late-night,jonadabian-slate,charcoal-black
+        ;;
+        ;; for mac systems
+        (if (equal window-system 'ns)
+            (progn
+              (setq ns-command-modifier 'meta)
+              (global-set-key [kp-delete] 'delete-char)
+              (setq default-frame-alist
+                    (append (list
+                             '(active-alpha . 0.9)
+                             '(inactive-alpha . 0.6))
+                            default-frame-alist)))))))
+
+(defun tweaks ()
+  "remove annoyances, add highlighting, etc."
+  ;; annoyances
+  (setq inhibit-startup-message t)
+  (setq initial-scratch-message nil)
+  (setq ring-bell-function 'ignore)
+  (fset 'yes-or-no-p 'y-or-n-p)
+  ;; highlighting
+  (setq-default query-replace-highlight t)
+  (setq-default search-highlight t)
+  ;; other tweaks
+  (setq kill-whole-line t)
+  (add-hook 'before-save-hook (lambda () (delete-trailing-whitespace)))
+  (setq require-final-newline t)
+  ;; groups of tweaks
+  (tweak-backup)
+  (tweak-key-bindings)
+  (tweak-package-manager)
+  (tweak-lisps)
+  (tweak-window-manager))
 
 ;;;
-;;; jabber
-
-(require 'jabber-autoloads)
-(setq jabber-account-list
-      '(
-        ("tom.lindsey@gmail.com"
-         (:network-server . "talk.google.com")
-         (:connection-type . ssl)
-         (:port . 443))
-        ("tlindsey@river"
-         (:network-server . "river")
-         (:connection-type . ssl)
-         (:port . 5223))))
+;;; make emacs my own
+;;;
+(modes)
+(tweaks)
+(find-file "~/.dates")
+(find-file "~/.links")
+(cd "~/scratch/")
