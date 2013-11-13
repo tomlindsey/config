@@ -65,4 +65,4 @@ ENDTERM
 
 #
 # git tab complete
-source .git-completion.bash
+source ~/.git-completion.bash

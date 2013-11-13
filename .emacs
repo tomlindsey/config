@@ -102,6 +102,7 @@
                 auto-mode-alist)))
 
 (defun modes ()
+  "manually loaded major/minor modes; many, like clojre and cider, are loaded by package.el"
   (modes-git)
   (modes-org)
   (modes-stats)
@@ -127,13 +128,17 @@
       (global-set-key [(meta return)] 'ns-toggle-fullscreen)))
 
 (defun tweak-lisps ()
-  (setq inferior-lisp-program "/opt/local/bin/clisp")
-  (setq hl-paren-colors '("orange1" "yellow1" "green1" "magenta1" "purple" "cyan" "slateblue1" "red1"))
-;;  (autoload 'paredit-mode "paredit" "Minor mode for pseudo-structurally editing Lisp code." t)
-  (add-hook 'clojure-mode-hook          (lambda () (highlight-parentheses-mode t)))
-  (add-hook 'emacs-lisp-mode-hook       (lambda () (highlight-parentheses-mode t)))
-  (add-hook 'lisp-mode-hook             (lambda () (highlight-parentheses-mode t)))
-  (add-hook 'lisp-interaction-mode-hook (lambda () (highlight-parentheses-mode t))))
+  ;; lisps
+;;   (setq inferior-lisp-program "/opt/local/bin/clisp")
+;;   (setq hl-paren-colors '("orange1" "yellow1" "green1" "magenta1" "purple" "cyan" "slateblue1" "red1"))
+;; ;;  (autoload 'paredit-mode "paredit" "Minor mode for pseudo-structurally editing Lisp code." t)
+;;   (add-hook 'emacs-lisp-mode-hook       (lambda () (highlight-parentheses-mode t)))
+;;   (add-hook 'lisp-mode-hook             (lambda () (highlight-parentheses-mode t)))
+;;   (add-hook 'lisp-interaction-mode-hook (lambda () (highlight-parentheses-mode t)))
+  ;; clojure (consider smartparens over paredit)
+  (add-hook 'clojure-mode-hook (lambda () (highlight-parentheses-mode t)))
+  (add-hook 'cider-mode-hook   'cider-turn-on-eldoc-mode)
+  (setq nrepl-hide-special-buffers t))
 
 (defun tweak-package-manager ()
   (setq package-archives '(("gnu"       . "http://elpa.gnu.org/packages/")
@@ -162,7 +167,15 @@
                     (append (list
                              '(active-alpha . 0.9)
                              '(inactive-alpha . 0.6))
-                            default-frame-alist)))))))
+                            default-frame-alist))))
+        ;;
+        ;; move the frame, load a few files, set cwd
+        (setq initial-frame-alist
+              '((top . 0) (left . 100) (width . 80) (height . 40)))
+        (find-file "~/.dates")
+        (find-file "~/.links")
+        (cd "~/scratch/"))))
+
 
 (defun tweaks ()
   "remove annoyances, add highlighting, etc."
@@ -190,6 +203,3 @@
 ;;;
 (modes)
 (tweaks)
-(find-file "~/.dates")
-(find-file "~/.links")
-(cd "~/scratch/")
