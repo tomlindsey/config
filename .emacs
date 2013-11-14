@@ -7,7 +7,7 @@
 ;;;
 
 (defun google (t)
-  "use google to search the term"
+  "use google to search for term"
   (interactive "sSearch: ")
   (browse-url (concat "http://www.google.com/search?q="
                       (url-encode-url t))))
@@ -86,7 +86,8 @@
   (add-to-list 'auto-mode-alist '("\\.scala" . scala-mode)))
 
 (defun modes-stats ()
-  (add-to-list 'load-path "~/lib/emacs/elisp-downloaded/ess-13.09/lisp") ; ess.r-project.org
+  "ess.r-project.org for working with R"
+  (add-to-list 'load-path "~/lib/emacs/elisp-downloaded/ess-13.09/lisp")
   (require 'ess-site)
   (setq auto-mode-alist
         (append '(("\\.R" . R-mode)
@@ -95,14 +96,17 @@
 
 (defun modes-web ()
   "web-mode from packages.el"
+  (let ((indent 4))
+    (setq web-mode-markup-indent-offset indent
+          web-mode-css-indent-offset indent
+          web-mode-code-indent-offset indent))
   (setq auto-mode-alist
-        (append '(
-                  ("\\.phtml" . web-mode)
+        (append '(("\\.phtml" . web-mode)
                   ("\\.php"   . web-mode))
                 auto-mode-alist)))
 
 (defun modes ()
-  "manually loaded major/minor modes; many, like clojre and cider, are loaded by package.el"
+  "manually loaded major/minor modes.  many other modes are loaded by package.el"
   (modes-git)
   (modes-org)
   (modes-stats)
@@ -128,6 +132,7 @@
       (global-set-key [(meta return)] 'ns-toggle-fullscreen)))
 
 (defun tweak-lisps ()
+  "clojure,cider,paredit loaded from package.el"
   ;; lisps
 ;;   (setq inferior-lisp-program "/opt/local/bin/clisp")
 ;;   (setq hl-paren-colors '("orange1" "yellow1" "green1" "magenta1" "purple" "cyan" "slateblue1" "red1"))
@@ -135,6 +140,7 @@
 ;;   (add-hook 'emacs-lisp-mode-hook       (lambda () (highlight-parentheses-mode t)))
 ;;   (add-hook 'lisp-mode-hook             (lambda () (highlight-parentheses-mode t)))
 ;;   (add-hook 'lisp-interaction-mode-hook (lambda () (highlight-parentheses-mode t)))
+
   ;; clojure (consider smartparens over paredit)
   (add-hook 'clojure-mode-hook (lambda () (highlight-parentheses-mode t)))
   (add-hook 'cider-mode-hook   'cider-turn-on-eldoc-mode)
@@ -148,7 +154,8 @@
 (defun tweak-window-manager ()
   (if (not (equal 'nil window-system))
       (progn
-        ;; common to all window managers
+
+        ;; common to all window systems
         (global-font-lock-mode t)
         (scroll-bar-mode -1)
         (add-to-list 'load-path "~/lib/emacs/elisp-downloaded/color-theme-6.6.0")
@@ -157,8 +164,8 @@
           '(progn
              (color-theme-initialize)
              (color-theme-shaman)))  ; (deep-blue,gtk-ide,late-night,jonadabian-slate,charcoal-black
-        ;;
-        ;; for mac systems
+
+        ;; specific for mac (my main system)
         (if (equal window-system 'ns)
             (progn
               (setq ns-command-modifier 'meta)
@@ -168,14 +175,13 @@
                              '(active-alpha . 0.9)
                              '(inactive-alpha . 0.6))
                             default-frame-alist))))
-        ;;
-        ;; move the frame, load a few files, set cwd
+
+        ;; position and size the frame, load a few files, set cwd
         (setq initial-frame-alist
               '((top . 0) (left . 100) (width . 80) (height . 40)))
         (find-file "~/.dates")
         (find-file "~/.links")
         (cd "~/scratch/"))))
-
 
 (defun tweaks ()
   "remove annoyances, add highlighting, etc."
