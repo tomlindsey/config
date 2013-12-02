@@ -68,6 +68,14 @@
 ;;; modes
 ;;;
 
+(defun modes-erlang ()
+  (setq load-path
+        (cons  "/usr/local/opt/erlang/lib/erlang/lib/tools-2.6.12/emacs"
+               load-path))
+  (setq erlang-root-dir "/usr/local/opt/erlang")
+  ;;(setq exec-path (cons "/usr/local/opt/erlang" exec-path))
+  (require 'erlang-start))
+
 (defun modes-git ()
   "install git and gitblame: magit was installed with package.el"
   (add-to-list 'load-path "/usr/local/opt/git/share/git-core/contrib/emacs") ; homebrew
@@ -107,6 +115,7 @@
 
 (defun modes ()
   "manually loaded major/minor modes.  many other modes are loaded by package.el"
+  (modes-erlang)
   (modes-git)
   (modes-org)
   (modes-stats)
