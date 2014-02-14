@@ -1,6 +1,7 @@
 [user]
-	name = tom lindsey
 	email = tlindsey@foundationsource.com
+	name = tom lindsey
+    editor = e
 
 [merge]
 	tool = opendiff
@@ -8,5 +9,6 @@
 [diff]
     external = ~/bin/opendiff-
 	tool = opendiff
+
 [push]
 	default = simple
