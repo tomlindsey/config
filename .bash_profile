@@ -13,6 +13,7 @@ PS1="\h\[\033[0;32m\]\$(parse_git_branch_and_add_brackets) \[\033[0m\]\$ "
 # look for the apps that the local admin has installed
 # and where I might place a script or two during the day
 #export PATH=/usr/local/git/bin:/usr/local/bin:/Users/me:/Users/me/bin:/opt/local/bin:/opt/local/sbin:$PATH
+export PATH=/Users/me/bin:$PATH
 
 #
 # color anyone?
