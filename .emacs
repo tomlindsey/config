@@ -6,11 +6,11 @@
 ;;; functions
 ;;;
 
-(defun google (t)
+(defun google (term)
   "use google to search for term"
   (interactive "sSearch: ")
   (browse-url (concat "http://www.google.com/search?q="
-                      (url-encode-url t))))
+                      (url-encode-url term))))
 (defun dict (w)
   "use google to lookup word"
   (interactive "sDefine: ")
@@ -45,14 +45,15 @@
  ;; If there is more than one, they won't work right.
  '(blink-cursor-mode t nil (frame))
  '(column-number-mode t)
+ '(custom-safe-themes (quote ("fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
  '(delete-selection-mode t nil (delsel))
  '(display-time-24hr-format t)
  '(indent-tabs-mode nil)
  '(menu-bar-mode t nil (menu-bar))
  '(scroll-preserve-screen-position 1)
- '(send-mail-function `mailclient-send-it)
+ '(send-mail-function (\` mailclient-send-it))
  '(show-paren-mode t)
- '(show-paren-style `mixed)
+ '(show-paren-style (\` mixed))
  '(show-trailing-whitespace t)
  '(size-indication-mode t)
  '(tab-width 4)
@@ -166,6 +167,7 @@
 
         ;; common to all window systems
         (global-font-lock-mode t)
+        (add-to-list 'custom-theme-load-path "~/lib/emacs/themes/")
         (scroll-bar-mode -1)
         (add-to-list 'load-path "~/lib/emacs/elisp-downloaded/color-theme-6.6.0")
         (require 'color-theme)
@@ -173,11 +175,13 @@
           '(progn
              (color-theme-initialize)
              (color-theme-shaman)))  ; (deep-blue,gtk-ide,late-night,jonadabian-slate,charcoal-black
+        (load-theme 'solarized-dark)
 
         ;; specific for mac (my main system)
         (if (equal window-system 'ns)
             (progn
               (setq ns-command-modifier 'meta)
+              (global-linum-mode t)
               (global-set-key [kp-delete] 'delete-char)
               (setq default-frame-alist
                     (append (list
