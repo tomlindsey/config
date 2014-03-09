@@ -10,7 +10,7 @@ main      http://uapp1.main:8080/fsol/indexForward.do
 next      http://uapp1.next:8080/fsol/indexForward.do
 release   http://uapp1.release:8080/fsol/indexForward.do
 
--- foundaion source
+-- foundation source
 ess       https://apps.evolutionpayroll.com/selfserve/pages/login.seam?gateway=HrConsulting&cid=15389
 handbook  http://marina/HR/Shared%20Documents/employee_handbook_revision%2010.8.13.pdf
 intranet  http://marina/default.aspx
