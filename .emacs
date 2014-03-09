@@ -141,7 +141,7 @@
       (global-set-key [(meta return)] 'ns-toggle-fullscreen)))
 
 (defun tweak-lisps ()
-  "clojure, cider, highlight-parenthesis, paredit loaded from package.el"
+  "clojure-mode, clojure-test-mode, cider, highlight-parenthesis, paredit loaded from package.el"
   ;; lisps
 ;;   (setq inferior-lisp-program "/opt/local/bin/clisp")
 ;;   (setq hl-paren-colors '("orange1" "yellow1" "green1" "magenta1" "purple" "cyan" "slateblue1" "red1"))
