@@ -15,11 +15,11 @@ ess       https://apps.evolutionpayroll.com/selfserve/pages/login.seam?gateway=H
 handbook  http://marina/HR/Shared%20Documents/employee_handbook_revision%2010.8.13.pdf
 intranet  http://marina/default.aspx
 pto       https://secure.entertimeonline.com/ta/FOSO.login
-team      http://eagle:8111
+teamcity  http://eagle.fs.local:8111
 travel    https://www.concursolutions.com
 wiki      http://liberty.fs.local
-work blog http://liberty.fs.local/wiki/people/Q468V6T5/blog
-youtrack  http://eagle:8112
+work blog http://Liberty.fs.local/wiki/people/Q468V6T5/blog
+youtrack  http://ealge.fs.local:8112
 
 -- mail
 deanna@lindsey-family.us
