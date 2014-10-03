@@ -70,7 +70,7 @@
 ;;;
 (defun modes-erlang ()
   (setq load-path
-        (cons  "/usr/local/opt/erlang/lib/erlang/lib/tools-2.6.13/emacs"
+        (cons  "/usr/local/opt/erlang/lib/erlang/lib/tools-2.7/emacs"
                load-path))
   (setq erlang-root-dir "/usr/local/opt/erlang")
   ;;(setq exec-path (cons "/usr/local/opt/erlang" exec-path))
@@ -141,7 +141,7 @@
       (global-set-key [(meta return)] 'ns-toggle-fullscreen)))
 
 (defun tweak-lisps ()
-  "clojure-mode, clojure-test-mode, cider, highlight-parenthesis, paredit loaded from package.el"
+  "clojure, cider, highlight-parenthesis, paredit loaded from package.el"
   ;; lisps
 ;;   (setq inferior-lisp-program "/opt/local/bin/clisp")
 ;;   (setq hl-paren-colors '("orange1" "yellow1" "green1" "magenta1" "purple" "cyan" "slateblue1" "red1"))
