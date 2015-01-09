@@ -70,7 +70,7 @@
 ;;;
 (defun modes-erlang ()
   (setq load-path
-        (cons  "/usr/local/opt/erlang/lib/erlang/lib/tools-2.7/emacs"
+        (cons  "/usr/local/opt/erlang/lib/erlang/lib/tools-2.7.1/emacs"
                load-path))
   (setq erlang-root-dir "/usr/local/opt/erlang")
   ;;(setq exec-path (cons "/usr/local/opt/erlang" exec-path))
@@ -90,8 +90,7 @@
   (global-set-key "\C-cl" 'org-store-link))
 
 (defun modes-scala ()
-  ""
-  (add-to-list 'auto-mode-alist '("\\.scala" . scala-mode)))
+  "scala mode is provided by scala-mode2 package")
 
 (defun modes-stats ()
   "ess.r-project.org for working with R"
