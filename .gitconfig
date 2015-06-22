@@ -1,14 +1,33 @@
 [user]
 	email = tlindsey@foundationsource.com
 	name = tom lindsey
-    editor = e
 
 [merge]
-	tool = opendiff
+#	tool = opendiff
+    tool = araxis
 
 [diff]
     external = ~/bin/opendiff-
-	tool = opendiff
+#	tool = opendiff
+    tool = araxis
 
 [push]
 	default = simple
+
+[core]
+	excludesfile = /Users/me/.gitignore_global
+	autocrlf = input
+	editor = emacs
+
+#[difftool "araxis"]
+#     path = /Applications/Araxis Merge.app/Contents/Utilities/compare
+#
+#[mergetool "araxis"]
+#     path = /Applications/Araxis Merge.app/Contents/Utilities/compare
+
+#[difftool "sourcetree"]
+#	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+# 	path =
+#[mergetool "sourcetree"]
+#	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+# 	trustExitCode = true
