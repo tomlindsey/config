@@ -1,4 +1,4 @@
-;;;; -*- mode: lisp; -*-
+;; -*- mode: lisp; -*-
 ;;;; .emacs
 ;;;; tom@thomasclindsey.com
 
@@ -36,7 +36,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:height 140 :family "Source Code Pro")))))
+ '(default ((t (:height 160 :family "Source Code Pro")))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -70,7 +70,7 @@
 ;;;
 (defun modes-erlang ()
   (setq load-path
-        (cons  "/usr/local/opt/erlang/lib/erlang/lib/tools-2.7.2/emacs"
+        (cons  "/usr/local/opt/erlang/lib/erlang/lib/tools-2.8.2/emacs"
                load-path))
   (setq erlang-root-dir "/usr/local/opt/erlang")
   ;;(setq exec-path (cons "/usr/local/opt/erlang" exec-path))
@@ -78,7 +78,7 @@
 
 (defun modes-git ()
   "install git and gitblame: magit was installed with package.el"
-  (add-to-list 'load-path "/usr/local/opt/git/share/git-core/contrib/emacs") ; homebrew
+  (add-to-list 'load-path "/usr/local/opt/git/share/emacs/site-lisp/git/") ; homebrew
   (require 'git)
   (require 'git-blame))
 
@@ -90,7 +90,11 @@
   (global-set-key "\C-cl" 'org-store-link))
 
 (defun modes-scala ()
-  "scala mode is provided by scala-mode2 package")
+  "scala mode is provided by scala-mode2 package"
+    (setq auto-mode-alist
+        (append '(("\\.scala" . scala-mode)
+                  ("\\.sbt" . scala-mode))
+                auto-mode-alist)))
 
 (defun modes-stats ()
   "ess.r-project.org for working with R"
@@ -117,6 +121,7 @@
   (modes-erlang)
   (modes-git)
   (modes-org)
+  (modes-scala)
   (modes-stats)
   (modes-web))
 
@@ -189,7 +194,7 @@
 
         ;; position and size the frame, load a few files, set cwd
         (setq initial-frame-alist
-              '((top . 0) (left . 100) (width . 80) (height . 40)))
+              '((top . 0) (left . 100) (width . 80) (height . 34)))
         (find-file "~/.dates")
         (find-file "~/.links")
         (cd "~/scratch/"))))
