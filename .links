@@ -1,25 +1,18 @@
 -*- mode: goto-address;-*-
 
+-- eci stuff
+http://ecis-corp-tfs:8080/tfs/DefaultCollection/STG/_admin/_versioncontrol
+https://helpdesk.ecisolutions.com/
+https://www2.v1host.com/ECiSoftwareSolutions/Default.aspx?menu=TeamRoomsPage
+http://ecis-sharepoint/
+/ssh:vssadmin@10.13.0.105:/home/svn/dgi/conf
+
 -- google stuff
 http://mail.google.com
 https://accounts.google.com/Logout
 
--- fsol
-local     http://localhost:8081/fsol/indexForward.do
-main      http://uapp1.main:8080/fsol/indexForward.do
-next      http://uapp1.next:8080/fsol/indexForward.do
-release   http://uapp1.release:8080/fsol/indexForward.do
-
--- foundation source
-ess       https://apps.evolutionpayroll.com/selfserve/pages/login.seam?gateway=HrConsulting&cid=15389
-handbook  http://marina/HR/Shared%20Documents/employee_handbook_revision%2010.8.13.pdf
-intranet  http://marina/default.aspx
-pto       https://secure.entertimeonline.com/ta/FOSO.login
-teamcity  http://eagle.fs.local:8111
-travel    https://www.concursolutions.com
-wiki      http://liberty.fs.local
-work blog http://Liberty.fs.local/wiki/people/Q468V6T5/blog
-youtrack  http://ealge.fs.local:8112
+-- emacs
+https://www.gnu.org/software/emacs/manual/html_node/elisp/index.html#SEC_Contents
 
 -- mail
 deanna@lindsey-family.us
