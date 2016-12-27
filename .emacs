@@ -1,4 +1,4 @@
-;;;; -*- mode: lisp; -*-
+; -*- mode: lisp; -*-
 ;;;; .emacs
 ;;;; tom@thomasclindsey.com
 
@@ -36,7 +36,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:height 140 :family "Source Code Pro")))))
+ '(default ((t (:height 160 :family "Source Code Pro")))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -45,7 +45,10 @@
  ;; If there is more than one, they won't work right.
  '(blink-cursor-mode t nil (frame))
  '(column-number-mode t)
- '(custom-safe-themes (quote ("fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
+ '(custom-safe-themes
+   (quote
+    ("fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6"
+     "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
  '(delete-selection-mode t nil (delsel))
  '(display-time-24hr-format t)
  '(indent-tabs-mode nil)
@@ -62,7 +65,7 @@
  '(transient-mark-mode t)
  '(truncate-lines t)
  '(user-full-name "Thomas C Lindsey")
- '(user-mail-address "tlindsey@foundationsource.com")
+ '(user-mail-address "tom@thomasclindsey.com")
  '(version-control t))
 
 ;;;
@@ -70,7 +73,7 @@
 ;;;
 (defun modes-erlang ()
   (setq load-path
-        (cons  "/usr/local/opt/erlang/lib/erlang/lib/tools-2.7.2/emacs"
+        (cons  "/usr/local/opt/erlang/lib/erlang/lib/tools-2.8.5/emacs"
                load-path))
   (setq erlang-root-dir "/usr/local/opt/erlang")
   ;;(setq exec-path (cons "/usr/local/opt/erlang" exec-path))
@@ -78,7 +81,7 @@
 
 (defun modes-git ()
   "install git and gitblame: magit was installed with package.el"
-  (add-to-list 'load-path "/usr/local/opt/git/share/git-core/contrib/emacs") ; homebrew
+  (add-to-list 'load-path "/usr/local/opt/git/share/emacs/site-lisp/git/") ; homebrew
   (require 'git)
   (require 'git-blame))
 
@@ -90,7 +93,11 @@
   (global-set-key "\C-cl" 'org-store-link))
 
 (defun modes-scala ()
-  "scala mode is provided by scala-mode2 package")
+  "scala mode is provided by scala-mode2 package"
+    (setq auto-mode-alist
+        (append '(("\\.scala" . scala-mode)
+                  ("\\.sbt" . scala-mode))
+                auto-mode-alist)))
 
 (defun modes-stats ()
   "ess.r-project.org for working with R"
@@ -117,6 +124,7 @@
   (modes-erlang)
   (modes-git)
   (modes-org)
+  (modes-scala)
   (modes-stats)
   (modes-web))
 
@@ -152,7 +160,18 @@
   ;; clojure (consider smartparens over paredit)
   (add-hook 'clojure-mode-hook (lambda () (highlight-parentheses-mode t)))
   (add-hook 'cider-mode-hook   'cider-turn-on-eldoc-mode)
-  (setq nrepl-hide-special-buffers t))
+  (setq nrepl-hide-special-buffers t)
+
+  (require 'clojure-mode)
+  (define-clojure-indent
+    (defroutes 'defun)
+    (GET 2)
+    (POST 2)
+    (PUT 2)
+    (DELETE 2)
+    (HEAD 2)
+    (ANY 2)
+    (context 2)))
 
 (defun tweak-package-manager ()
   (setq package-archives '(("gnu"       . "http://elpa.gnu.org/packages/")
@@ -189,7 +208,7 @@
 
         ;; position and size the frame, load a few files, set cwd
         (setq initial-frame-alist
-              '((top . 0) (left . 100) (width . 80) (height . 40)))
+              '((top . 0) (left . 100) (width . 80) (height . 34)))
         (find-file "~/.dates")
         (find-file "~/.links")
         (cd "~/scratch/"))))
@@ -218,5 +237,6 @@
 ;;;
 ;;; make emacs my own
 ;;;
+(package-initialize)
 (modes)
 (tweaks)
