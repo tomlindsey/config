@@ -193,7 +193,7 @@
   ;;
   ;; cider
   ;; depends on clojure's CLI tools. $ brew install clojure
-  ;(add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+  (add-hook 'cider-mode-hook #'eldoc-mode)
   (setq cider-auto-select-error-buffer t)
   (setq cider-repl-history-file "~/.emacs.d/cider-history")
   (setq cider-repl-pop-to-buffer-on-connect t) ; go right to the REPL buffer when it's finished connecting
