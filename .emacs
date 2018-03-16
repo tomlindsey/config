@@ -28,6 +28,11 @@
           "culpa qui officia deserunt mollit anim id est laborum."))
 
 ;;;
+;;; paths
+;;;
+(add-to-list 'exec-path "/usr/local/bin/")
+
+;;;
 ;;; customize
 ;;;
 
@@ -55,7 +60,7 @@
  '(menu-bar-mode t nil (menu-bar))
  '(package-selected-packages
    (quote
-    (enh-ruby-mode org inf-ruby ensime python-mode magit scala-mode rainbow-mode rainbow-delimiters paredit markdown-mode json-mode highlight-parentheses haskell-tab-indent haskell-mode graphviz-dot-mode fsharp-mode elm-mode csharp-mode clojure-mode-extra-font-locking auto-compile ac-nrepl)))
+    (exec-path-from-shell enh-ruby-mode org inf-ruby ensime python-mode magit scala-mode rainbow-mode rainbow-delimiters paredit markdown-mode json-mode highlight-parentheses haskell-tab-indent haskell-mode graphviz-dot-mode fsharp-mode elm-mode csharp-mode clojure-mode-extra-font-locking auto-compile ac-nrepl)))
  '(scroll-preserve-screen-position 1)
  '(send-mail-function (\` mailclient-send-it))
  '(show-paren-mode t)
@@ -187,7 +192,8 @@
 
   ;;
   ;; cider
-  (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+  ;; depends on clojure's CLI tools. $ brew install clojure
+  ;(add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
   (setq cider-auto-select-error-buffer t)
   (setq cider-repl-history-file "~/.emacs.d/cider-history")
   (setq cider-repl-pop-to-buffer-on-connect t) ; go right to the REPL buffer when it's finished connecting
