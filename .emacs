@@ -52,7 +52,11 @@
  '(delete-selection-mode t nil (delsel))
  '(display-time-24hr-format t)
  '(indent-tabs-mode nil)
+ '(js-indent-level 2)
  '(menu-bar-mode t nil (menu-bar))
+ '(package-selected-packages
+   (quote
+    (org inf-ruby ensime python-mode magit scala-mode rainbow-mode rainbow-delimiters paredit markdown-mode json-mode highlight-parentheses haskell-tab-indent haskell-mode graphviz-dot-mode fsharp-mode elm-mode csharp-mode clojure-mode-extra-font-locking auto-compile ac-nrepl)))
  '(scroll-preserve-screen-position 1)
  '(send-mail-function (\` mailclient-send-it))
  '(show-paren-mode t)
@@ -73,7 +77,7 @@
 ;;;
 (defun modes-erlang ()
   (setq load-path
-        (cons  "/usr/local/opt/erlang/lib/erlang/lib/tools-2.8.5/emacs"
+        (cons  "/usr/local/opt/erlang/lib/erlang/lib/tools-2.11.2/emacs"
                load-path))
   (setq erlang-root-dir "/usr/local/opt/erlang")
   ;;(setq exec-path (cons "/usr/local/opt/erlang" exec-path))
@@ -88,9 +92,29 @@
 (defun modes-org ()
   "close items with time, key bindings for agenda and store link"
   (setq org-log-done 'time) ; 'note or buffer by buffer with : #+STARTUP: logdone or lognotedone
+  (setq org-startup-indented t)
   (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
   (global-set-key "\C-ca" 'org-agenda)
-  (global-set-key "\C-cl" 'org-store-link))
+  (global-set-key "\C-cl" 'org-store-link)
+
+  ;;
+  ;; org mode setting for literate programming
+  (setq org-confirm-babel-evaluate nil
+        org-src-fontify-natively t
+        org-src-tab-acts-natively t)
+
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((sh         . t)
+     (java       . t)
+     (js         . t)
+     (emacs-lisp . t)
+     (clojure    . t)
+     (python     . t)
+     (ruby       . t)
+     (css        . t)
+     (dot        . t)
+     (plantuml   . t))))
 
 (defun modes-scala ()
   "scala mode is provided by scala-mode2 package"
@@ -176,7 +200,8 @@
 (defun tweak-package-manager ()
   (setq package-archives '(("gnu"       . "http://elpa.gnu.org/packages/")
                            ("marmalade" . "http://marmalade-repo.org/packages/")
-                           ("melpa"     .  "http://melpa.milkbox.net/packages/"))))
+                           ("melpa"     . "http://melpa.org/packages/")
+                           ("org"        . "https://orgmode.org/elpa/"))))
 
 (defun tweak-window-manager ()
   (if (not (equal 'nil window-system))
@@ -191,7 +216,7 @@
         (eval-after-load "color-theme"
           '(progn
              (color-theme-initialize)
-             (color-theme-shaman)))  ; (deep-blue,gtk-ide,late-night,jonadabian-slate,charcoal-black
+             (load-theme 'solarized-dark)))  ; (deep-blue,gtk-ide,late-night,jonadabian-slate,charcoal-black
         (load-theme 'solarized-dark)
 
         ;; specific for mac (my main system)
