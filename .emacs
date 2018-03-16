@@ -47,8 +47,7 @@
  '(column-number-mode t)
  '(custom-safe-themes
    (quote
-    ("fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6"
-     "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
+    ("fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
  '(delete-selection-mode t nil (delsel))
  '(display-time-24hr-format t)
  '(indent-tabs-mode nil)
@@ -56,7 +55,7 @@
  '(menu-bar-mode t nil (menu-bar))
  '(package-selected-packages
    (quote
-    (org inf-ruby ensime python-mode magit scala-mode rainbow-mode rainbow-delimiters paredit markdown-mode json-mode highlight-parentheses haskell-tab-indent haskell-mode graphviz-dot-mode fsharp-mode elm-mode csharp-mode clojure-mode-extra-font-locking auto-compile ac-nrepl)))
+    (enh-ruby-mode org inf-ruby ensime python-mode magit scala-mode rainbow-mode rainbow-delimiters paredit markdown-mode json-mode highlight-parentheses haskell-tab-indent haskell-mode graphviz-dot-mode fsharp-mode elm-mode csharp-mode clojure-mode-extra-font-locking auto-compile ac-nrepl)))
  '(scroll-preserve-screen-position 1)
  '(send-mail-function (\` mailclient-send-it))
  '(show-paren-mode t)
@@ -173,20 +172,30 @@
 
 (defun tweak-lisps ()
   "clojure, cider, highlight-parenthesis, paredit loaded from package.el"
-  ;; lisps
-;;   (setq inferior-lisp-program "/opt/local/bin/clisp")
-;;   (setq hl-paren-colors '("orange1" "yellow1" "green1" "magenta1" "purple" "cyan" "slateblue1" "red1"))
-;; ;;  (autoload 'paredit-mode "paredit" "Minor mode for pseudo-structurally editing Lisp code." t)
-;;   (add-hook 'emacs-lisp-mode-hook       (lambda () (highlight-parentheses-mode t)))
-;;   (add-hook 'lisp-mode-hook             (lambda () (highlight-parentheses-mode t)))
-;;   (add-hook 'lisp-interaction-mode-hook (lambda () (highlight-parentheses-mode t)))
+  (require 'clojure-mode)
 
-  ;; clojure (consider smartparens over paredit)
+  (setq auto-mode-alist
+        (append '(("\\.edn$"    . clojure-mode)
+                  ("\\.boot$"   . clojure-mode)
+                  ("\\.cljs.*$" . clojure-mode)
+                  ("lein.env"   . enh-ruby-mode))
+                auto-mode-alist))
+
+  ;;
+  ;; clojure
   (add-hook 'clojure-mode-hook (lambda () (highlight-parentheses-mode t)))
-  (add-hook 'cider-mode-hook   'cider-turn-on-eldoc-mode)
+
+  ;;
+  ;; cider
+  (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+  (setq cider-auto-select-error-buffer t)
+  (setq cider-repl-history-file "~/.emacs.d/cider-history")
+  (setq cider-repl-pop-to-buffer-on-connect t) ; go right to the REPL buffer when it's finished connecting
+  (setq cider-repl-wrap-history t)             ; Wrap when navigating history.
+  (setq cider-show-error-buffer t)             ; When there's a cider error, show its buffer and switch to it
+
   (setq nrepl-hide-special-buffers t)
 
-  (require 'clojure-mode)
   (define-clojure-indent
     (defroutes 'defun)
     (GET 2)
