@@ -28,6 +28,11 @@
           "culpa qui officia deserunt mollit anim id est laborum."))
 
 ;;;
+;;; paths
+;;;
+(add-to-list 'exec-path "/usr/local/bin/")
+
+;;;
 ;;; customize
 ;;;
 
@@ -47,12 +52,15 @@
  '(column-number-mode t)
  '(custom-safe-themes
    (quote
-    ("fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6"
-     "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
+    ("fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
  '(delete-selection-mode t nil (delsel))
  '(display-time-24hr-format t)
  '(indent-tabs-mode nil)
+ '(js-indent-level 2)
  '(menu-bar-mode t nil (menu-bar))
+ '(package-selected-packages
+   (quote
+    (exec-path-from-shell enh-ruby-mode org inf-ruby ensime python-mode magit scala-mode rainbow-mode rainbow-delimiters paredit markdown-mode json-mode highlight-parentheses haskell-tab-indent haskell-mode graphviz-dot-mode fsharp-mode elm-mode csharp-mode clojure-mode-extra-font-locking auto-compile ac-nrepl)))
  '(scroll-preserve-screen-position 1)
  '(send-mail-function (\` mailclient-send-it))
  '(show-paren-mode t)
@@ -73,7 +81,7 @@
 ;;;
 (defun modes-erlang ()
   (setq load-path
-        (cons  "/usr/local/opt/erlang/lib/erlang/lib/tools-2.8.5/emacs"
+        (cons  "/usr/local/opt/erlang/lib/erlang/lib/tools-2.11.2/emacs"
                load-path))
   (setq erlang-root-dir "/usr/local/opt/erlang")
   ;;(setq exec-path (cons "/usr/local/opt/erlang" exec-path))
@@ -88,9 +96,29 @@
 (defun modes-org ()
   "close items with time, key bindings for agenda and store link"
   (setq org-log-done 'time) ; 'note or buffer by buffer with : #+STARTUP: logdone or lognotedone
+  (setq org-startup-indented t)
   (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
   (global-set-key "\C-ca" 'org-agenda)
-  (global-set-key "\C-cl" 'org-store-link))
+  (global-set-key "\C-cl" 'org-store-link)
+
+  ;;
+  ;; org mode setting for literate programming
+  (setq org-confirm-babel-evaluate nil
+        org-src-fontify-natively t
+        org-src-tab-acts-natively t)
+
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((sh         . t)
+     (java       . t)
+     (js         . t)
+     (emacs-lisp . t)
+     (clojure    . t)
+     (python     . t)
+     (ruby       . t)
+     (css        . t)
+     (dot        . t)
+     (plantuml   . t))))
 
 (defun modes-scala ()
   "scala mode is provided by scala-mode2 package"
@@ -149,20 +177,31 @@
 
 (defun tweak-lisps ()
   "clojure, cider, highlight-parenthesis, paredit loaded from package.el"
-  ;; lisps
-;;   (setq inferior-lisp-program "/opt/local/bin/clisp")
-;;   (setq hl-paren-colors '("orange1" "yellow1" "green1" "magenta1" "purple" "cyan" "slateblue1" "red1"))
-;; ;;  (autoload 'paredit-mode "paredit" "Minor mode for pseudo-structurally editing Lisp code." t)
-;;   (add-hook 'emacs-lisp-mode-hook       (lambda () (highlight-parentheses-mode t)))
-;;   (add-hook 'lisp-mode-hook             (lambda () (highlight-parentheses-mode t)))
-;;   (add-hook 'lisp-interaction-mode-hook (lambda () (highlight-parentheses-mode t)))
+  (require 'clojure-mode)
 
-  ;; clojure (consider smartparens over paredit)
+  (setq auto-mode-alist
+        (append '(("\\.edn$"    . clojure-mode)
+                  ("\\.boot$"   . clojure-mode)
+                  ("\\.cljs.*$" . clojure-mode)
+                  ("lein.env"   . enh-ruby-mode))
+                auto-mode-alist))
+
+  ;;
+  ;; clojure
   (add-hook 'clojure-mode-hook (lambda () (highlight-parentheses-mode t)))
-  (add-hook 'cider-mode-hook   'cider-turn-on-eldoc-mode)
+
+  ;;
+  ;; cider
+  ;; depends on clojure's CLI tools. $ brew install clojure
+  (add-hook 'cider-mode-hook #'eldoc-mode)
+  (setq cider-auto-select-error-buffer t)
+  (setq cider-repl-history-file "~/.emacs.d/cider-history")
+  (setq cider-repl-pop-to-buffer-on-connect t) ; go right to the REPL buffer when it's finished connecting
+  (setq cider-repl-wrap-history t)             ; Wrap when navigating history.
+  (setq cider-show-error-buffer t)             ; When there's a cider error, show its buffer and switch to it
+
   (setq nrepl-hide-special-buffers t)
 
-  (require 'clojure-mode)
   (define-clojure-indent
     (defroutes 'defun)
     (GET 2)
@@ -176,7 +215,8 @@
 (defun tweak-package-manager ()
   (setq package-archives '(("gnu"       . "http://elpa.gnu.org/packages/")
                            ("marmalade" . "http://marmalade-repo.org/packages/")
-                           ("melpa"     .  "http://melpa.milkbox.net/packages/"))))
+                           ("melpa"     . "http://melpa.org/packages/")
+                           ("org"        . "https://orgmode.org/elpa/"))))
 
 (defun tweak-window-manager ()
   (if (not (equal 'nil window-system))
@@ -191,7 +231,7 @@
         (eval-after-load "color-theme"
           '(progn
              (color-theme-initialize)
-             (color-theme-shaman)))  ; (deep-blue,gtk-ide,late-night,jonadabian-slate,charcoal-black
+             (load-theme 'solarized-dark)))  ; (deep-blue,gtk-ide,late-night,jonadabian-slate,charcoal-black
         (load-theme 'solarized-dark)
 
         ;; specific for mac (my main system)
