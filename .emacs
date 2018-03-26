@@ -1,4 +1,4 @@
-; -*- mode: lisp; -*-
+;;;; -*- mode: lisp; -*-
 ;;;; .emacs
 ;;;; tom@thomasclindsey.com
 
@@ -52,10 +52,11 @@
  '(display-time-24hr-format t)
  '(indent-tabs-mode nil)
  '(js-indent-level 2)
+ '(ispell-program-name "/usr/local/bin/ispell")
  '(menu-bar-mode t nil (menu-bar))
  '(package-selected-packages
    (quote
-    (plantuml-mode htmlize exec-path-from-shell enh-ruby-mode org inf-ruby ensime python-mode magit scala-mode rainbow-mode rainbow-delimiters paredit markdown-mode json-mode highlight-parentheses haskell-tab-indent haskell-mode graphviz-dot-mode fsharp-mode elm-mode csharp-mode clojure-mode-extra-font-locking auto-compile ac-nrepl)))
+    (ac-nrepl auto-compile clojure-mode clojure-mode-extra-font-locking csharp-mode csv-mode elm-mode enh-ruby-mode ensime exec-path-from-shell fsharp-mode graphviz-dot-mode haskell-mode haskell-tab-indent highlight-parentheses htmlize inf-ruby json-mode json-reformat magit markdown-mode org pandoc-mode paredit plantuml-mode python-mode rainbow-delimiters rainbow-mode scala-mode web-mode)))
  '(scroll-preserve-screen-position 1)
  '(send-mail-function (\` mailclient-send-it))
  '(show-paren-mode t)
@@ -68,7 +69,7 @@
  '(transient-mark-mode t)
  '(truncate-lines t)
  '(user-full-name "Thomas C Lindsey")
- '(user-mail-address "tom@thomasclindsey.com")
+ '(user-mail-address "tlindsey@ecisolutions.com")
  '(version-control t))
 
 ;;;
@@ -76,17 +77,25 @@
 ;;;
 (defun modes-erlang ()
   (setq load-path
-        (cons  "/usr/local/opt/erlang/lib/erlang/lib/tools-2.11.2/emacs"
+        (cons  "/usr/local/opt/erlang/lib/erlang/lib/tools-2.8.5/emacs"
                load-path))
-  (setq erlang-root-dir "/usr/local/opt/erlang")
-  ;;(setq exec-path (cons "/usr/local/opt/erlang" exec-path))
+  (setq erlang-root-dir "/usr/local/opt/")
   (require 'erlang-start))
 
 (defun modes-git ()
   "install git and gitblame: magit was installed with package.el"
-  (add-to-list 'load-path "/usr/local/opt/git/share/emacs/site-lisp/git/") ; homebrew
+  (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/git") ; homebrew
   (require 'git)
   (require 'git-blame))
+
+(defun modes-json ()
+  "marmalade package"
+  (add-hook 'json-mode-hook (lambda () (setq js-indent-level 2))))
+
+(defun modes-markdown ()
+  "http://jblevins.org/projects/markdown-mode/"
+    (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
+    (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode)))
 
 (defun modes-org ()
   "close items with time, key bindings for agenda and store link"
@@ -147,10 +156,12 @@
   "manually loaded major/minor modes.  many other modes are loaded by package.el"
   (modes-erlang)
   (modes-git)
+  (modes-markdown)
   (modes-org)
   (modes-scala)
   (modes-stats)
-  (modes-web))
+  (modes-web)
+  (modes-json))
 
 ;;;
 ;;; tweaks
@@ -210,9 +221,15 @@
 
 (defun tweak-package-manager ()
   (setq package-archives '(("gnu"       . "http://elpa.gnu.org/packages/")
-                           ("marmalade" . "http://marmalade-repo.org/packages/")
+;                           ("marmalade" . "http://marmalade-repo.org/packages/")
                            ("melpa"     . "http://melpa.org/packages/")
-                           ("org"        . "https://orgmode.org/elpa/"))))
+                           ("org"       .  "http://orgmode.org/elpa/"))))
+
+(defun tweak-python ()
+  (add-hook 'python-mode-hook
+            (lambda ()
+              (setq python-indent 2)
+              (add-to-list 'write-file-functions 'delete-trailing-whitespace))))
 
 (defun tweak-window-manager ()
   (if (not (equal 'nil window-system))
@@ -244,7 +261,7 @@
 
         ;; position and size the frame, load a few files, set cwd
         (setq initial-frame-alist
-              '((top . 0) (left . 100) (width . 80) (height . 34)))
+              '((top . 0) (left . 100) (width . 80) (height . 40)))
         (find-file "~/.dates")
         (find-file "~/.links")
         (cd "~/scratch/"))))
@@ -275,6 +292,7 @@
   (setq require-final-newline t)
 
   ;; groups of tweaks
+  (tweak-python)
   (tweak-backup)
   (tweak-key-bindings)
   (tweak-package-manager)
