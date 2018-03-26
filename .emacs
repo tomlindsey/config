@@ -28,11 +28,6 @@
           "culpa qui officia deserunt mollit anim id est laborum."))
 
 ;;;
-;;; paths
-;;;
-(add-to-list 'exec-path "/usr/local/bin/")
-
-;;;
 ;;; customize
 ;;;
 
@@ -60,7 +55,7 @@
  '(menu-bar-mode t nil (menu-bar))
  '(package-selected-packages
    (quote
-    (exec-path-from-shell enh-ruby-mode org inf-ruby ensime python-mode magit scala-mode rainbow-mode rainbow-delimiters paredit markdown-mode json-mode highlight-parentheses haskell-tab-indent haskell-mode graphviz-dot-mode fsharp-mode elm-mode csharp-mode clojure-mode-extra-font-locking auto-compile ac-nrepl)))
+    (plantuml-mode htmlize exec-path-from-shell enh-ruby-mode org inf-ruby ensime python-mode magit scala-mode rainbow-mode rainbow-delimiters paredit markdown-mode json-mode highlight-parentheses haskell-tab-indent haskell-mode graphviz-dot-mode fsharp-mode elm-mode csharp-mode clojure-mode-extra-font-locking auto-compile ac-nrepl)))
  '(scroll-preserve-screen-position 1)
  '(send-mail-function (\` mailclient-send-it))
  '(show-paren-mode t)
@@ -98,6 +93,7 @@
   (setq org-log-done 'time) ; 'note or buffer by buffer with : #+STARTUP: logdone or lognotedone
   (setq org-startup-indented t)
   (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+  (add-to-list 'auto-mode-alist '("\\.dot$" . graphviz-dot-mode))
   (global-set-key "\C-ca" 'org-agenda)
   (global-set-key "\C-cl" 'org-store-link)
 
@@ -109,7 +105,7 @@
 
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((sh         . t)
+   '((shell      . t)
      (java       . t)
      (js         . t)
      (emacs-lisp . t)
@@ -124,7 +120,7 @@
   "scala mode is provided by scala-mode2 package"
     (setq auto-mode-alist
         (append '(("\\.scala" . scala-mode)
-                  ("\\.sbt" . scala-mode))
+                  ("\\.sbt"   . scala-mode))
                 auto-mode-alist)))
 
 (defun modes-stats ()
@@ -255,18 +251,29 @@
 
 (defun tweaks ()
   "remove annoyances, add highlighting, etc."
+  ;; lauching emacs in os x which is not under a shell
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize))
+
+  ;; not sure why they hardcoded a path
+  (setq org-plantuml-jar-path
+        (expand-file-name "~/plantuml.jar"))
+
   ;; annoyances
   (setq inhibit-startup-message t)
   (setq initial-scratch-message nil)
   (setq ring-bell-function 'ignore)
   (fset 'yes-or-no-p 'y-or-n-p)
+
   ;; highlighting
   (setq-default query-replace-highlight t)
   (setq-default search-highlight t)
+
   ;; other tweaks
   (setq kill-whole-line t)
   (add-hook 'before-save-hook (lambda () (delete-trailing-whitespace)))
   (setq require-final-newline t)
+
   ;; groups of tweaks
   (tweak-backup)
   (tweak-key-bindings)
