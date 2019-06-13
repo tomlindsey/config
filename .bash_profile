@@ -13,7 +13,6 @@ PS1="\h\[\033[0;32m\]\$(parse_git_branch_and_add_brackets) \[\033[0m\]\$ "
 # look for the apps that the local admin has installed
 # and where I might place a script or two during the day
 #export PATH=/usr/local/git/bin:/usr/local/bin:/Users/me:/Users/me/bin:/opt/local/bin:/opt/local/sbin:$PATH
-export PATH=/Users/me/bin:$PATH
 
 #
 # color anyone?
@@ -53,17 +52,11 @@ fi
 #  alias slogin='colorwrap.sh \slogin'
 #fi
 
-term() {
-    #
-    # open a second terminal window and execute the command
-    osascript 2>/dev/null <<ENDTERM
-tell application "Terminal"
-    activate
-    do script with command "$@; exit"
-    end tell
-ENDTERM
-}
-
 #
 # git tab complete
 source ~/.git-completion.bash
+
+# Setting PATH for Python 3.5
+# The orginal version is saved in .bash_profile.pysave
+PATH="/Library/Frameworks/Python.framework/Versions/3.5/bin:${PATH}"
+export PATH
