@@ -1,33 +1,74 @@
-[user]
-	email = tlindsey@foundationsource.com
-	name = tom lindsey
+;;;;
+;;;; ~/.gitconfig
+;;;; /usr/local/bin/git (installed and maintained by Homebrew)
+;;;;
 
-[merge]
-#	tool = opendiff
-    tool = araxis
+[apply]
+    whitespace = fix
+
+[branch]
+    autoSetupRebase = local
+
+[color]
+	ui = auto
+
+[core]
+	autocrlf = input
+	editor = emacs
+;; windoze shit
+;;    autocrlf = true
+;;    ignoreCase = true
+;;    precomposeUnicode = true
+
+[user]
+	name = Thomas C Lindsey
+	email = tom.lindsey@gmail.com
 
 [diff]
-    external = ~/bin/opendiff-
-#	tool = opendiff
-    tool = araxis
+	tool = opendiff
+    prompt = false
+
+[difftool "opendiff"]
+    tool = opendiff
+    prompt = false
+
+[merge]
+    conflictStyle = diff3
+	tool = opendiff
+
+[merge.tool]
+    prompt = false
+	tool = opendiff
+
+;;;
+;;; working with remotes
+;;;
+
+[fetch]
+	prune = false
 
 [push]
 	default = simple
 
-[core]
-	excludesfile = /Users/me/.gitignore_global
-	autocrlf = input
-	editor = emacs
+;;;
+;;; miscellaneous settings
+;;;
 
-#[difftool "araxis"]
-#     path = /Applications/Araxis Merge.app/Contents/Utilities/compare
-#
-#[mergetool "araxis"]
-#     path = /Applications/Araxis Merge.app/Contents/Utilities/compare
+[grep]
+    extendedRegexp = true
+    lineNumber = true
 
-#[difftool "sourcetree"]
-#	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-# 	path =
-#[mergetool "sourcetree"]
-#	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-# 	trustExitCode = true
+[help]
+    autoCorrect = 20    ; I can't type worth shit
+
+[http]
+    postBuffer = 1048576000
+
+[difftool]
+	prompt = false
+[mergetool]
+	prompt = false
+[filter "media"]
+	clean = git media clean %f
+	smudge = git media smudge %f
+	required = true
