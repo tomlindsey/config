@@ -19,13 +19,7 @@
 (defun lorem ()
   "Insert a lorem ipsum."
   (interactive)
-  (insert "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do "
-          "eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad "
-          "minim veniam, quis nostrud exercitation ullamco laboris nisi ut "
-          "aliquip ex ea commodo consequat. Duis aute irure dolor in "
-          "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla "
-          "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in "
-          "culpa qui officia deserunt mollit anim id est laborum."))
+  (insert "Lorem ipsum dolor sit amet, sea ad clita sadipscing, mea id antiopam prodesset. Justo scripta vivendum eum id, in vis essent petentium. Qui mutat tritani epicuri et, utamur percipitur an sea. Ad nullam integre eum. Cu atqui inermis pri, tempor causae sanctus at pro. Ea cum tation hendrerit conclusionemque, veri hendrerit definitionem sit at. Vix adipiscing dissentiet eloquentiam eu, decore epicurei liberavisse eu eam."))
 
 ;;;
 ;;; customize
@@ -51,9 +45,10 @@
  '(delete-selection-mode t nil (delsel))
  '(display-time-24hr-format t)
  '(indent-tabs-mode nil)
- '(js-indent-level 2)
  '(ispell-program-name "/usr/local/bin/ispell")
+ '(js-indent-level 2)
  '(menu-bar-mode t nil (menu-bar))
+ '(org-export-backends (quote (ascii html icalendar latex md odt)))
  '(package-selected-packages
    (quote
     (ac-nrepl auto-compile clojure-mode clojure-mode-extra-font-locking csharp-mode csv-mode elm-mode enh-ruby-mode ensime exec-path-from-shell fsharp-mode graphviz-dot-mode haskell-mode haskell-tab-indent highlight-parentheses htmlize inf-ruby json-mode json-reformat magit markdown-mode org pandoc-mode paredit plantuml-mode python-mode rainbow-delimiters rainbow-mode scala-mode web-mode)))
