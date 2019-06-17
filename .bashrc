@@ -19,6 +19,8 @@ alias 755='chmod 755'            # owner +rwe, others, +re
 #
 # other stuff
 alias e='emacs'                  # execute emacs
+readonly CODE=~/code
+
 #
 # bash history
 alias hist='history | grep $1'   # show commands by regexp
