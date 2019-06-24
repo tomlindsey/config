@@ -3,14 +3,15 @@
 google stuff
 ------------
 https://mail.google.com
-https://accounts.google.com/Logout
+https://accounts.google.com
 
 -- eci stuff
 ecinside   : https://ecinside
 helpdesk   : https://helpdesk.ecisolutions.com/
-svn        : svn://tlindsey:pass@10.13.0.105/home/svn/dgi/ pa$$
+svn        : svn://tlindsey:pa$$@10.13.0.105/home/svn/dgi/ : pa$$
 svn-admin  : ssh://vssadmin:D1g1t%40lV%24%24@10.13.0.105:/home/svn/dgi/conf : D1g1t@lV$$
 teamcity   : http://dgsvcs-tfsbuild/login.html
+           : http://eauto-build01/login.html
 tfs        : https://ecis-corp-tfs:8080/tfs/DefaultCollection/STG/_admin/_versioncontrol
 training   : https://training.eci.solutions  ecitraining\doug.hannett, Dagevi47
 vbld       : rdp://screen%20mode%20id=i:2&use%20multimon=i:0&session%20bpp=i:24&full%20address=s:10.13.1.50&audiomode=i:0&username=s:build&disable%20wallpaper=i:0&disable%20full%20window%20drag=i:0&disable%20menu%20anims=i:0&disable%20themes=i:0&alternate%20shell=s:&shell%20working%20directory=s:&authentication%20level=i:2&connect%20to%20console=i:0&gatewayusagemethod=i:0&disable%20cursor%20setting=i:0&allow%20font%20smoothing=i:1&allow%20desktop%20composition=i:1&redirectprinters=i:0&prompt%20for%20credentials%20on%20client=i:0&autoreconnection%20enabled=i:1&bookmarktype=i:3&use%20redirection%20server%20name=i:0&authoring%20tool=s:rdmac DGI4923576 Bu1ldm4ch1n3
@@ -37,26 +38,21 @@ tom@lindsey-family.us
 -- eci-mail
 all.dev@ecisolutions.com
 amortensen@ecisolutions.com
-bkenworthy@ecisolutions.com
-bsmith@ecisolutions.com
 bsorensen@ecisolutions.com
 bwickes@ecisolutions.com
-carlos.pammo@ecisolutions.com
 dhannett@ecisolutions.com
 dkolb@ecisolutions.com
-dojeda@ecisolutions.com
 gpeterson@ecisolutions.com
-jniermeyer@ecisolutions.com
 kallen@ecisolutions.com
 kjohnson@ecisolutions.com
 lheather@ecisolutions.com
+mbaker@ecisolutions.com
 mglenz@ecisolutions.com
 mrobinette@ecisolutions.com
 nstoltz@ecisolutions.com
-paulo.ormachea@ecisolutions.com
-rlara@ecisolutions.com
-rvargas@ecisolutions.com
-sconyers@ecisolutions.com
 ssaegrove@ecisolutions.com
 tdewitt@ecisolutions.com
 wcrook@ecisolutions.com
+
+VendorConnector Dealer: TXL
+VendorConnector DealerAuth: 3aed4d68-ec5f-4679-873b-6cc0b044ed22
