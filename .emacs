@@ -72,16 +72,10 @@
 ;;;
 (defun modes-erlang ()
   (setq load-path
-        (cons  "/usr/local/opt/erlang/lib/erlang/lib/tools-2.8.5/emacs"
+        (cons  "/usr/local/opt/erlang/lib/erlang/lib/tools-3.2/emacs"
                load-path))
   (setq erlang-root-dir "/usr/local/opt/")
   (require 'erlang-start))
-
-(defun modes-git ()
-  "install git and gitblame: magit was installed with package.el"
-  (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/git") ; homebrew
-  (require 'git)
-  (require 'git-blame))
 
 (defun modes-json ()
   "marmalade package"
@@ -150,11 +144,10 @@
 (defun modes ()
   "manually loaded major/minor modes.  many other modes are loaded by package.el"
   (modes-erlang)
-  (modes-git)
   (modes-markdown)
   (modes-org)
   (modes-scala)
-  (modes-stats)
+  ;(modes-stats)
   (modes-web)
   (modes-json))
 
@@ -215,10 +208,9 @@
     (context 2)))
 
 (defun tweak-package-manager ()
-  (setq package-archives '(("gnu"       . "http://elpa.gnu.org/packages/")
-;                           ("marmalade" . "http://marmalade-repo.org/packages/")
-                           ("melpa"     . "http://melpa.org/packages/")
-                           ("org"       .  "http://orgmode.org/elpa/"))))
+  (setq package-archives '(("gnu"   . "http://elpa.gnu.org/packages/")
+                           ("melpa" . "http://melpa.org/packages/")
+                           ("org"   . "http://orgmode.org/elpa/"))))
 
 (defun tweak-python ()
   (add-hook 'python-mode-hook
@@ -256,9 +248,9 @@
 
         ;; position and size the frame, load a few files, set cwd
         (setq initial-frame-alist
-              '((top . 0) (left . 100) (width . 80) (height . 40)))
-        (find-file "~/.dates")
-        (find-file "~/.links")
+              '((top . 0) (left . 100) (width . 120) (height . 60)))
+        (find-file "~/Dropbox/.dates")
+        (find-file "~/Dropbox/.links")
         (cd "~/scratch/"))))
 
 (defun tweaks ()
